@@ -1,0 +1,30 @@
+PROPRIETARY LICENSE AND TERMS OF USE (ALL RIGHTS RESERVED)
+==========================================================
+Copyright © 2026 Christino Malaysianto. All rights reserved.
+
+Owner Information:
+- Name: Christino Malaysianto
+- Email: christino.malaysianto@gmail.com
+
+By accessing, viewing, embedding, or using any part of this repository, including the HTML source code, JavaScript scripts, and accompanying 3D character models/assets, you (the "Client" or "End-User") agree to be bound by the following legally binding terms:
+
+1. INTELLECTUAL PROPERTY OWNERSHIP
+All materials contained within this repository, including but not limited to 3D character models (.glb, .gltf, .obj, .fbx), custom user interface codes, Tailwind CSS configurations, and interactivity logic, are the exclusive intellectual property of Christino Malaysianto. No transfer of ownership occurs under this agreement.
+
+2. RESTRICTED SHARING & ACCESS CONTROL (GOOGLE DRIVE STYLE RESTRICTION)
+Access to the live rendering of the 3D assets is strictly restricted and managed similarly to a private cloud storage permission system (e.g., Google Drive). 
+- The Client is granted a non-transferable, non-exclusive license to display the 3D viewer only within pre-authorized platforms or specific URLs (such as the Client's official Patreon page, Substack, or agreed website).
+- The Client and any third party are strictly prohibited from redistributing, sharing the backend source files, or re-hosting the live 3D viewer link to unauthorized domains without prior written consent from Christino Malaysianto.
+
+3. STRICT NO-DERIVATIVES & NO-MODIFICATION POLICY
+The Client, End-Users, and public visitors are explicitly forbidden from:
+- Modifying, altering, tampering with, or creating derivative works from the 3D models or the website's source code.
+- Decompiling, reverse-engineering, or attempting to extract the underlying 3D mesh and textures from the web environment.
+
+4. COMMERCIAL LIMITATIONS
+Unless explicitly specified in a separate commercial contract signed by Christino Malaysianto, the use of these source codes and 3D models for unauthorized commercial platforms, sub-licensing, or resale is strictly prohibited.
+
+5. TERMINATION OF ACCESS
+Any breach of these terms will result in immediate and automatic revocation of the access permissions, and Christino Malaysianto reserves the right to technically block the 3D viewer from rendering on the Client's platform.
+
+For inquiries regarding authorization extensions or commercial sub-licensing, please contact the owner at christino.malaysianto@gmail.com.
