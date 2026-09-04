@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Character Showcase - Secure Access</title>
+    <!-- Memanggil aset lokal agar enteng dan bebas blokir Chrome -->
+    <script src="tailwind.js"></script>
+    <script type="module" src="model-viewer.min.js"></script>
+</head>
+<body class="bg-neutral-950 text-white min-h-screen font-sans flex items-center justify-center">
+
+    <!-- SECURITY CHECKS (GOOGLE DRIVE STYLE RESTRICTION) -->
+    <script>
+        // UPDATE: Daftar domain yang Anda izinkan untuk menampilkan 3D ini.
+        // Anda bisa menambah atau mengganti daftar ini sesuai izin yang diberikan ke klien.
+        const allowedDomains = [
+            "://patreon.com",
+            "://substack.com",
+            "wordpress.com",
+            "localhost" // Diizinkan agar Anda tetap bisa tes lewat Live Server VS Code
+        ];
+
+        // 1. Proteksi: Memblokir jika link GitHub Pages dibuka langsung di browser (tanpa iframe)
+        if (window.self === window.top) {
+            blockAccess("Direct sharing of this link is restricted. This 3D viewer can only be viewed on authorized client pages.");
+        } else {
+            // 2. Proteksi: Mengecek asal-usul (referrer) tempat iframe dipasang
+            const parentUrl = document.referrer;
+            
+            // Periksa apakah ada salah satu domain resmi di dalam URL pengakses
+            const isAuthorized = allowedDomains.some(domain => parentUrl.includes(domain));
+            
+            if (!isAuthorized) {
+                blockAccess("This 3D character viewer is not authorized to load on this domain.");
+            }
+        }
+
+        // Fungsi otomatis untuk mengunci layar dan menampilkan kontak Anda jika terjadi pelanggaran share
+        function blockAccess(message) {
+            document.body.innerHTML = `
+                <div class="text-center p-8 max-w-md border border-neutral-800 bg-neutral-900 rounded-2xl shadow-2xl m-4">
+                    <h1 class="text-2xl font-bold text-red-500 flex justify-center items-center gap-2">🚫 Access Denied</h1>
+                    <p class="text-sm text-neutral-400 mt-3">${message}</p>
+                    <div class="mt-6 pt-4 border-t border-neutral-800">
+                        <p class="text-xs text-neutral-500 font-mono">Created by: Christino Malaysianto</p>
+                        <p class="text-xs text-cyan-400 font-mono mt-1">Contact: christino.malaysianto@gmail.com</p>
+                    </div>
+                </div>
+            `;
+            throw new Error("Security Violation: Access Blocked."); // Hentikan sisa eksekusi kode HTML
+        }
+    </script>
+
+    <!-- CONTENT 3D UTAMA (Hanya akan dirender jika lolos cek keamanan di atas) -->
+    <main class="w-full max-w-lg p-4">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 hover:border-cyan-500/30">
+            
+            <!-- 3D Viewer Container -->
+            <div class="w-full h-96 bg-neutral-950 relative">
+                <model-viewer 
+                    src="models/model1.glb" 
+                    class="w-full h-full"
+                    camera-controls 
+                    auto-rotate 
+                    interaction-prompt="none"
+                    shadow-intensity="1">
+                </model-viewer>
+                
+                <!-- Watermark Hak Cipta Anda yang tidak bisa dihapus klien lewat iframe -->
+                <span class="absolute bottom-4 right-4 bg-black/60 backdrop-blur-sm text-[10px] px-2.5 py-1 rounded border border-neutral-800 text-neutral-400 font-mono">
+                    © Christino Malaysianto
+                </span>
+            </div>
+
+            <!-- Bagian Info Karakter (Opsional, bisa Anda hapus/sesuaikan) -->
+            <div class="p-5 border-t border-neutral-800/50">
+                <h3 class="font-bold text-lg text-neutral-100">Exclusive 3D Character</h3>
+                <p class="text-xs text-neutral-500 mt-1">Authorized Showcase Room</p>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>
