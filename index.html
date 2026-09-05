@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Character Showcase - Secure Access</title>
-    
-    <!-- HAPUS SCRIPT TAILWIND, GANTI DENGAN CSS INTERNAL YANG JAUH LEBIH ENTENG INI -->
+    <title>3D Hub - Secure Stream</title>
     <style>
         body {
             margin: 0; background-color: #0a0a0a; color: #ffffff;
@@ -21,7 +19,7 @@
         .text-red { color: #ef4444; font-size: 1.5rem; font-weight: bold; margin: 0; }
         .text-gray { color: #a3a3a3; font-size: 0.875rem; margin-top: 0.75rem; }
         .text-footer { color: #737373; font-size: 0.75rem; font-family: monospace; margin-top: 0.25rem; }
-        .border-top { border-top: 1px solid #262626; margin-top: 1.5rem; pt: 1rem; }
+        .border-top { border-top: 1px solid #262626; margin-top: 1.5rem; padding-top: 1rem; }
         .text-cyan { color: #22d3ee; }
         
         main { width: 100%; max-width: 32rem; padding: 1rem; }
@@ -38,28 +36,34 @@
             color: #a3a3a3; font-size: 10px; font-family: monospace;
         }
     </style>
-
+    
+    <!-- PANGGIL FILE DAFTAR LIST KLIEN SECARA LOKAL -->
+    <script src="configClient.js"></script>
     <script type="module" src="model-viewer.min.js"></script>
 </head>
 <body>
 
-    <!-- SECURITY CHECKS -->
     <script>
-        const allowedDomains = [
-            "://patreon.com",
-            "://substack.com",
-            "wordpress.com",
-            "localhost"
-            "tinoaja07.github.io" 
-        ];
+        // 1. Ambil parameter dari link URL (?folder=...&file=...)
+        const urlParams = new URLSearchParams(window.location.search);
+        const folder = urlParams.get('folder'); 
+        const file = urlParams.get('file');     
 
+        if (!folder || !file) {
+            blockAccess("Invalid request. No 3D asset parameter specified.");
+        }
+
+        // 2. JALANKAN CEK KEAMANAN BERDASARKAN DATA DARI CONFIG.JS
         if (window.self === window.top) {
-            blockAccess("Direct sharing of this link is restricted. This 3D viewer can only be viewed on authorized client pages.");
+            blockAccess("Direct sharing of this link is restricted. This viewer can only be embedded inside authorized client pages.");
         } else {
             const parentUrl = document.referrer;
-            const isAuthorized = allowedDomains.some(domain => parentUrl.includes(domain));
-            if (!isAuthorized) {
-                blockAccess("This 3D character viewer is not authorized to load on this domain.");
+            
+            // Mengambil daftar list yang diatur di config.js
+            const authorizedDomain = window.ACCESS_CONTROL_LIST ? window.ACCESS_CONTROL_LIST[folder] : null;
+
+            if (!authorizedDomain || !parentUrl.includes(authorizedDomain)) {
+                blockAccess("Unauthorized access. This domain is not permitted to load this specific 3D character asset.");
             }
         }
 
@@ -69,12 +73,12 @@
                     <p class="text-red">🚫 Access Denied</p>
                     <p class="text-gray">${message}</p>
                     <div class="border-top">
-                        <p class="text-footer">Created by: Christino Malaysianto</p>
+                        <p class="text-footer">Secured by: Christino Malaysianto</p>
                         <p class="text-footer text-cyan" style="margin-top: 4px;">Contact: christino.malaysianto@gmail.com</p>
                     </div>
                 </div>
             `;
-            throw new Error("Security Violation: Access Blocked.");
+            throw new Error("Security Lock Triggered.");
         }
     </script>
 
@@ -82,13 +86,17 @@
     <main>
         <div class="card-3d">
             <div class="viewer-container">
-                <model-viewer 
-                    src="models/model1.glb" 
-                    camera-controls 
-                    auto-rotate 
-                    interaction-prompt="none"
-                    shadow-intensity="1">
-                </model-viewer>
+                <script>
+                    document.write(`
+                        <model-viewer 
+                            src="models/${folder}/${file}.glb" 
+                            camera-controls 
+                            auto-rotate 
+                            interaction-prompt="none"
+                            shadow-intensity="1">
+                        </model-viewer>
+                    `);
+                </script>
                 <span class="watermark">© Christino Malaysianto</span>
             </div>
         </div>
