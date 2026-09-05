@@ -5,7 +5,7 @@ const ACCESS_CONTROL_LIST = {
     // Format: "nama_folder_di_github": "domain_patreon_klien"
     "pesanan01": "://patreon.com",
     "pesanan02": "://patreon.com",
-    "https://tinoaja07.github.io/"
+    "https://tinoaja07.github.io/TinoAjaDb01/"
     
     // Jangan hapus baris di bawah ini agar Anda bisa tetap tes offline di Linux
     "test": "localhost" 
